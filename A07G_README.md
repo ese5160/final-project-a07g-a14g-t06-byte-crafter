@@ -35,7 +35,7 @@
 Please see below diagram for our project:  
 ![block_diagram_outlining.png](images/block_diagram_outlining.png)
 
-### Flowcharts or state machine diagram
+### 3. Flowcharts or state machine diagram
 
 ## 2. Understanding the Starter Code
 ### 2.1
