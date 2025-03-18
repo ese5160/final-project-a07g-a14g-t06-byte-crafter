@@ -48,15 +48,29 @@ Data structure: FIFO
 
 ### 2.2
 
-cbufRx and cbufTx are initialized by *circular_buf_init()*, which allocates a *circular_buf_t* structure and binds the address pointed to by the pointer to rxCharacterBuffer and txCharacterBuffer as a data store by means of pointers to rxCharacterBuffer and txCharacterBuffer respectively, which are used to store the serial port data and set the maximum storage size of the circular buffer according to the array size. It also need to clear the buffer.
+cbufRx and cbufTx are initialized by *circular_buf_init()*, which allocates a *circular_buf_t* structure and they contain pointers to rxCharacterBuffer and txCharacterBuffer, respectively. These arrays serve as the data storage for the circular buffer, where incoming and outgoing serial port data is stored. The function also sets the maximum storage size of the circular buffer based on the size of these arrays. Additionally, the buffer must be cleared (using *circular_buf_reset()*) to ensure proper initialization.
+
+Library: *circular_buffer.c*
 
 ### 2.3
 
+RX: 
+Array: rxCharacterBuffer[];
+Size: RX_BUFFER_SIZE
+
+TX: 
+Array: txCharacterBuffer[]; 
+Size: TX_BUFFER_SIZE
+
 ### 2.4
+
+*configure_usart_callbacks()*
 
 ### 2.5
 
+a. RX: usart_write_callback
 
+b. TX: usart_read_callback
 ### 2.6
 
 ### 2.7
