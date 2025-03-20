@@ -73,13 +73,26 @@ a. RX: usart_write_callback
 b. TX: usart_read_callback
 ### 2.6
 
+*usart_write_callback*: Get the next character to be sent from cbufTx and continue the send operation.
+
+*usart_read_callback*: Put the received data into cbufRx for subsequent processing.
+
 ### 2.7
 
 
 ### 2.8
 
+UART transmission:
+
+![TX](/images/2.8.TX.png)
 
 ### 2.9
+
+Functions:
+1. Initialize and create FreeRTOS tasks.
+2. Prints the heap memory size before and after task creation.
+
+One thread (CLI_TASK) is started for the project.
 
 ## 3. Debug Logger Module
 
