@@ -123,7 +123,16 @@ UART transmission:
 
 ### 4.2
 
+Hardware Connection:
+![connection](/images/A07G/4.2.jpg)
 
+### 4.3
+Decoded message:
+![screenshot](/images/A07G/4.3.png)
+
+### 4.4
+
+File path: [.sal file](/A07G/uart_capture.sal)
 
 ## 5. Complete the CLI
 
