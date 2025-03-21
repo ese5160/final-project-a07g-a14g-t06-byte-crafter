@@ -14,6 +14,7 @@
 /******************************************************************************
  * Defines
  ******************************************************************************/
+#define FIRMWARE_VERSION "0.0.1"
 
 /******************************************************************************
  * Variables
@@ -35,6 +36,21 @@ static const CLI_Command_Definition_t xResetCommand =
         "reset: Resets the device\r\n",
         (const pdCOMMAND_LINE_CALLBACK)CLI_ResetDevice,
         0};
+
+// add CLI commands	
+static const CLI_Command_Definition_t xVersionCommand =
+	{
+		"version",  
+		"version: Prints the firmware version.\r\n",  
+		(const pdCOMMAND_LINE_CALLBACK)CLI_Version, 
+		0};
+
+static const CLI_Command_Definition_t xTicksCommand =
+	{
+		"ticks",
+		TICK_CMD_HELP,
+		(const pdCOMMAND_LINE_CALLBACK)CLI_Ticks,
+		0};
 
 /******************************************************************************
  * Forward Declarations
@@ -241,4 +257,29 @@ BaseType_t CLI_ResetDevice(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const 
 {
     system_reset();
     return pdFALSE;
+}
+
+BaseType_t CLI_Version(char *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString)
+{
+	if (pcWriteBuffer == NULL) {
+		return pdFALSE;
+	}
+	snprintf(pcWriteBuffer, xWriteBufferLen, "Firmware Version: %s\r\n", FIRMWARE_VERSION);
+	return pdFALSE;
+}
+
+BaseType_t CLI_Ticks(char *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString)
+{
+	TickType_t tickCount;
+	if (xTaskGetSchedulerState() == taskSCHEDULER_NOT_STARTED)
+	{
+		snprintf(pcWriteBuffer, xWriteBufferLen, "Scheduler not started yet.\r\n");
+	}
+	else
+	{
+		tickCount = xTaskGetTickCount();
+		snprintf(pcWriteBuffer, xWriteBufferLen, "Ticks since start: %u\r\n", (unsigned long)tickCount);
+	}
+
+	return pdFALSE;
 }
