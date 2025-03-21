@@ -48,3 +48,7 @@ BaseType_t CLI_NeotrellProcessButtonBuffer( int8_t *pcWriteBuffer,size_t xWriteB
 BaseType_t CLI_DistanceSensorGetDistance( int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString );
 BaseType_t CLI_ResetDevice( int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString );
 BaseType_t CLI_SendDummyGameData( int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString );
+
+BaseType_t CLI_Version( char *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
+#define TICK_CMD_HELP "ticks: Prints the number of ticks since the scheduler started.\r\n"
+BaseType_t CLI_Ticks(char *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
