@@ -33,11 +33,21 @@
 ### 2. Block diagram outlining the different tasks
 
 Please see below diagram for our project:  
-![block_diagram_outlining.png](images/block_diagram_outlining.png)
+![block_diagram_outlining.png](images/A07G/block_diagram_outlining.png)
 
 ### 3. Flowcharts or state machine diagram
 
+Please see below flowcharts for our tasks:
+
+1. LCD flowchart: ![LCD.png](images/A07G/LCD.png)
+2. Buzzer flowchart: ![buzzer.png](images/A07G/buzzer.png)
+3. Servo flowchart: ![servo.png](images/A07G/servo.png)
+4. Fingerprint flowchart: ![fingerprint.png](images/A07G/fingerprint.png)
+5. IMU flowchart: ![IMU.png](images/A07G/IMU.png)
+6. Rotary Encoder flowchart: ![rotary_encoder.png](images/A07G/rotary_encoder.png)
+
 ## 2. Understanding the Starter Code
+
 ### 2.1
 *InitializeSerialConsole()* function is used to initialize the UART and register the callback function, the main purpose is to prepare the serial port for communication: 1. Initialize Ring Buffers (Circular Buffers); 2. Configure USART (Universal Synchronous/Asynchronous Transceiver); 3. Setting Interrupt Priority; 4. Initiate Serial Data Read.
 
@@ -84,7 +94,7 @@ b. TX: usart_read_callback
 
 UART transmission:
 
-![TX](/images/2.8.TX.png)
+![TX](images/A07G/2.8.TX.png)
 
 ### 2.9
 
