@@ -64,27 +64,25 @@ int main(void)
 	InitializeSerialConsole();
 
 	/* Insert application code here, after the board has been initialized. */
-
 	system_interrupt_enable_global();
+	
+	SerialConsoleWriteString("ESE5160 - CLI and Debug Logger\r\n"); // Order to add string to TX Buffer
 
-	 SerialConsoleWriteString("ESE5160 - CLI and Debug Logger\r\n"); // Order to add string to TX Buffer
+	char string[] = "CLI starter code - ESE516\r\n";
 
-	 char string[] = "CLI starter code - ESE516\r\n";
+	/*Simple DebugLogger Test*/
+	setLogLevel(LOG_INFO_LVL);
+	LogMessage(LOG_INFO_LVL, "%s", string);									  // Test
+	setLogLevel(LOG_ERROR_LVL);												  // Sets the Debug Logger to only allow messages with LOG_ERROR_LVL or higher to be printed
+	LogMessage(LOG_INFO_LVL, "Performing Temperature Test...\r\n");			  // This should NOT print
+	LogMessage(LOG_FATAL_LVL, "Error! Temperature over %d Degrees!\r\n", 55); // This should print
 
-	 /*Simple DebugLogger Test*/
-	 setLogLevel(LOG_INFO_LVL);
-	 LogMessage(LOG_INFO_LVL, "%s", string);									  // Test
-	 setLogLevel(LOG_ERROR_LVL);												  // Sets the Debug Logger to only allow messages with LOG_ERROR_LVL or higher to be printed
-	 LogMessage(LOG_INFO_LVL, "Performing Temperature Test...\r\n");			  // This should NOT print
-	 LogMessage(LOG_FATAL_LVL, "Error! Temperature over %d Degrees!\r\n", 55); // This should print
-
-	 LogMessage(LOG_INFO_LVL, "ESE5160 CLI STARTER PROJECT STARTED\r\n");
+	LogMessage(LOG_INFO_LVL, "ESE5160 CLI STARTER PROJECT STARTED\r\n");
 
 	// Start FreeRTOS scheduler.
 	vTaskStartScheduler();
 
-	while (1)
-		;
+	while (1);
 }
 
 /**************************************************************************/ 
@@ -97,7 +95,6 @@ int main(void)
  *****************************************************************************/
 static void StartTasks(void)
 {
-
 	snprintf(bufferPrint, 64, "Heap before starting tasks: %d\r\n", xPortGetFreeHeapSize());
 	SerialConsoleWriteString(bufferPrint);
 
@@ -124,7 +121,6 @@ static void StartTasks(void)
 
 void vApplicationDaemonTaskStartupHook(void *ucParameterToPass) // vApplicationDaemonTaskStartupHook()
 {
-
 	// CODE HERE: Initialize any HW here
 
 	// Initialize tasks
@@ -134,13 +130,11 @@ void vApplicationDaemonTaskStartupHook(void *ucParameterToPass) // vApplicationD
 void vApplicationMallocFailedHook(void)
 {
 	SerialConsoleWriteString("Error on memory allocation on FREERTOS!\r\n");
-	while (1)
-		;
+	while (1);
 }
 
 void vApplicationStackOverflowHook(void)
 {
 	SerialConsoleWriteString("Error on stack overflow on FREERTOS!\r\n");
-	while (1)
-		;
+	while (1);
 }

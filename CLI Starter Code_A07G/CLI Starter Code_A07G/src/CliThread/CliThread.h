@@ -14,8 +14,8 @@
 
 
 #define CLI_TASK_SIZE	256		///<STUDENT FILL
-#define CLI_PRIORITY (configMAX_PRIORITIES - 1) ///<STUDENT FILL
-#define CLI_TASK_DELAY 150	///STUDENT FILL
+#define CLI_PRIORITY		(configMAX_PRIORITIES - 1) ///<STUDENT FILL
+#define CLI_TASK_DELAY	150	///STUDENT FILL
 
 #define MAX_INPUT_LENGTH_CLI    100	//STUDENT FILL
 #define MAX_OUTPUT_LENGTH_CLI   130	//STUDENT FILL
@@ -27,13 +27,13 @@
 
 #define ASCII_BACKSPACE					0x08
 #define ASCII_DELETE                    0x7F
-#define ASCII_WHITESPACE				0x20
+#define ASCII_WHITESPACE					0x20
 #define ASCII_ESC						27
 
 
 BaseType_t xCliClearTerminalScreen( char *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString );
 
-#define	CLI_COMMAND_CLEAR_SCREEN		"cls"
+#define	CLI_COMMAND_CLEAR_SCREEN			"cls"
 #define CLI_HELP_CLEAR_SCREEN			"cls: Clears the terminal screen\r\n"
 #define CLI_CALLBACK_CLEAR_SCREEN		(pdCOMMAND_LINE_CALLBACK)xCliClearTerminalScreen
 #define CLI_PARAMS_CLEAR_SCREEN			0

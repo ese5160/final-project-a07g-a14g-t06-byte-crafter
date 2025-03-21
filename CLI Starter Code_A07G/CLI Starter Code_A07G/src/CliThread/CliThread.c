@@ -40,6 +40,7 @@ static const CLI_Command_Definition_t xResetCommand =
  * Forward Declarations
  ******************************************************************************/
 static void FreeRTOS_read(char *character);
+
 /******************************************************************************
  * Callback Functions
  ******************************************************************************/
@@ -51,7 +52,6 @@ static void FreeRTOS_read(char *character);
 void vCommandConsoleTask(void *pvParameters)
 {
     // REGISTER COMMANDS HERE
-
     FreeRTOS_CLIRegisterCommand(&xClearScreen);
     FreeRTOS_CLIRegisterCommand(&xResetCommand);
 
@@ -77,7 +77,6 @@ void vCommandConsoleTask(void *pvParameters)
     {
         /* This implementation reads a single character at a time.  Wait in the
         Blocked state until a character is received. */
-
         FreeRTOS_read(&cRxedChar);
 
         if (cRxedChar[0] == '\n' || cRxedChar[0] == '\r')
@@ -218,6 +217,7 @@ static void FreeRTOS_read(char *character)
 {
     // ToDo: Complete this function
     vTaskSuspend(NULL); // We suspend ourselves. Please remove this when doing your code
+	
 }
 
 /******************************************************************************
