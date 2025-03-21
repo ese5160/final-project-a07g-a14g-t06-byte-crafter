@@ -13,11 +13,11 @@
 #### 1.1 Hardware Requirements Specification (HRS)
 
 - **HRS 01:** SAMW25 microcontroller shall be used for this project.
-- **HRS 02:** LCD display shall be used for user interface with correct information and the refresh rate of the screen should not be too slow (e.g. 3s)
-- **HRS 03:** The rotary encoder shall allow the user to navigate the menu on the LCD and select it.
-- **HRS 04:** The fingerprint module shall achieve greater than 95% correctness within 1 second.
-- **HRS 05:** The IMU shall detect vibrations caused by violent tampering or forced entry attempts.
-- **HRS 06:** The buzzer shall be sounded when specific requirements are met.
+- **HRS 02:** LCD display shall be used for user interface with correct information and the refresh rate of the screen should not be too slow (e.g. 3s), via SPI protocol.
+- **HRS 03:** The rotary encoder shall allow the user to navigate the menu on the LCD and select it, through GPIO pins configured for interrupt-driven input.
+- **HRS 04:** The fingerprint module shall achieve greater than 95% correctness within 1 second, via a UART interface.
+- **HRS 05:** The IMU shall detect vibrations caused by violent tampering or forced entry attempts, via an I2C interface.
+- **HRS 06:** The buzzer shall be sounded when specific requirements are met, driven via a PWM-capable GPIO pin.
 
 #### 1.2 Software Requirements Specification (SRS)
 
