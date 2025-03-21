@@ -129,6 +129,7 @@ Hardware Connection:
 ![connection](/images/A07G/4.2.jpg)
 
 ### 4.3
+
 Decoded message:
 ![screenshot](/images/A07G/4.3.png)
 
