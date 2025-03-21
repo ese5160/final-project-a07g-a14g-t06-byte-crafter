@@ -105,21 +105,23 @@ UART transmission:
 
 ## 3. Debug Logger Module
 
+Done, code is under CLI Starter Code_A07G.
+
 ## 4. Wiretap the convo
 
 ### 4.1
 
 1. SERCOM configurations:
-    - TX: SERCOM4_PAD2; 
-    - RX: SERCOM4_PAD3.
+   1. TX: SERCOM4_PAD2;
+   2. RX: SERCOM4_PAD3.
 2. Physical Pin:
-    - TX: PB10; 
-    - RX: PB11;
+   1. TX: PB10;
+   2. RX: PB11;
 3. Logic Analyzer Setting:
-    - Baud rate: 115200;
-    - Data Bit: 8 bit;
-    - Stop bit: 1 bit;
-    - Parity: None;
+   1. Baud rate: 115200;
+   2. Data Bit: 8 bit;
+   3. Stop bit: 1 bit;
+   4. Parity: None;
 
 ### 4.2
 
