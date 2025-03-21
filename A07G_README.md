@@ -49,6 +49,7 @@ Please see below flowcharts for our tasks:
 ## 2. Understanding the Starter Code
 
 ### 2.1
+
 *InitializeSerialConsole()* function is used to initialize the UART and register the callback function, the main purpose is to prepare the serial port for communication: 1. Initialize Ring Buffers (Circular Buffers); 2. Configure USART (Universal Synchronous/Asynchronous Transceiver); 3. Setting Interrupt Priority; 4. Initiate Serial Data Read.
 
 cbufRx is a Circular Buffer that points to the rxCharacterBuffer, which is used to store data received from the serial port;
@@ -64,12 +65,12 @@ Library: *circular_buffer.c*
 
 ### 2.3
 
-RX: 
+RX:
 Array: rxCharacterBuffer[];
 Size: RX_BUFFER_SIZE
 
-TX: 
-Array: txCharacterBuffer[]; 
+TX:
+Array: txCharacterBuffer[];
 Size: TX_BUFFER_SIZE
 
 ### 2.4
@@ -81,6 +82,7 @@ Size: TX_BUFFER_SIZE
 a. RX: usart_write_callback
 
 b. TX: usart_read_callback
+
 ### 2.6
 
 *usart_write_callback*: Get the next character to be sent from cbufTx and continue the send operation.
@@ -89,20 +91,17 @@ b. TX: usart_read_callback
 
 ### 2.7
 
-
 ### 2.8
 
-UART transmission:
-
+UART transmission:  
 ![TX](images/A07G/2.8.TX.png)
 
 ### 2.9
 
-Functions:
-1. Initialize and create FreeRTOS tasks.
-2. Prints the heap memory size before and after task creation.
-
-One thread (CLI_TASK) is started for the project.
+1. Functions:
+   1. Initialize and create FreeRTOS tasks.
+   2. Prints the heap memory size before and after task creation.
+2. One thread (CLI_TASK) is started for the project.
 
 ## 3. Debug Logger Module
 
