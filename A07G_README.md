@@ -107,6 +107,24 @@ UART transmission:
 
 ## 4. Wiretap the convo
 
+### 4.1
+
+1. SERCOM configurations:
+    - TX: SERCOM4_PAD2; 
+    - RX: SERCOM4_PAD3.
+2. Physical Pin:
+    - TX: PB10; 
+    - RX: PB11;
+3. Logic Analyzer Setting:
+    - Baud rate: 115200;
+    - Data Bit: 8 bit;
+    - Stop bit: 1 bit;
+    - Parity: None;
+
+### 4.2
+
+
+
 ## 5. Complete the CLI
 
 ## 6. Add CLI commands
