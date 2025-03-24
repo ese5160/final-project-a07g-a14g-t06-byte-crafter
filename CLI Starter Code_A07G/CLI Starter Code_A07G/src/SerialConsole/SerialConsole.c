@@ -63,6 +63,9 @@ char rxCharacterBuffer[RX_BUFFER_SIZE]; 			   ///< Buffer to store received char
 char txCharacterBuffer[TX_BUFFER_SIZE]; 			   ///< Buffer to store characters to be sent
 enum eDebugLogLevels currentDebugLevel = LOG_INFO_LVL; ///< Default debug level
 
+static SemaphoreHandle_t xRxSemaphore = NULL;  // Semaphore
+static SemaphoreHandle_t xRxMutex = NULL;      // Mutex
+
 /******************************************************************************
  * Global Functions
  ******************************************************************************/
@@ -84,6 +87,12 @@ void InitializeSerialConsole(void)
     usart_read_buffer_job(&usart_instance, (uint8_t *)&latestRx, 1); // Kicks off constant reading of characters
 
 	// Add any other calls you need to do to initialize your Serial Console
+	// Create semaphore
+	xRxSemaphore = xSemaphoreCreateBinary();
+	if (xRxSemaphore == NULL)
+	{
+		SerialConsoleWriteString("ERROR: Could not create RX semaphore!");
+	}
 }
 
 /**
@@ -189,8 +198,7 @@ void LogMessage(enum eDebugLogLevels level, const char *format, ...)
 	va_end(args);
 
 	SerialConsoleWriteString(buffer);
-	SerialConsoleWriteString("\r\n");
-	
+	SerialConsoleWriteString("\r\n");	
 }
 
 /*
@@ -258,13 +266,23 @@ static void configure_usart_callbacks(void)
  *****************************************************************************/
 void usart_read_callback(struct usart_module *const usart_module)
 {
-	// ToDo: Complete this function 
+	// ToDo: Complete this function
 	
-	circular_buf_put(cbufRx, latestRx);
-
+	//Flag used to indicate whether a higher priority task was woken by the ISR
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 	
-	usart_read_buffer_job(&usart_instance, (uint8_t *)&latestRx, 1);
+	if (circular_buf_put2(cbufRx, latestRx) == 0)
+	{
+		xSemaphoreGiveFromISR(xRxSemaphore, &xHigherPriorityTaskWoken);
+	}
+	
+	// Make sure to enable the next receiving
+	while (usart_read_buffer_job(&usart_instance, (uint8_t *)&latestRx, 1) != STATUS_OK);
+	
+	// If a higher priority task was woken, yield to it
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
+
 
 /**************************************************************************/ 
 /**
@@ -278,4 +296,13 @@ void usart_write_callback(struct usart_module *const usart_module)
 	{
 		usart_write_buffer_job(&usart_instance, (uint8_t *)&latestTx, 1);
 	}
+}
+
+/**
+ * @brief Retrieves the RX semaphore used to signal character reception from UART.
+ * @return SemaphoreHandle_t - A handle to the RX semaphore. May be NULL if not initialized.
+ */
+SemaphoreHandle_t GetSerialRxSemaphore(void)
+{
+	return xRxSemaphore;
 }

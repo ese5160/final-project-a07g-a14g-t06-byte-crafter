@@ -120,6 +120,18 @@ void setLogLevel(enum eDebugLogLevels debugLevel);
  *****************************************************************************/
 enum eDebugLogLevels getLogLevel(void);
 
+/**
+ * @fn      SemaphoreHandle_t GetSerialRxSemaphore(void)
+ * @brief   Retrieves the RX semaphore used to signal character reception from UART.
+ * 
+ *          This function provides access to the semaphore that is signaled by the UART
+ *          receive interrupt when a character arrives. Tasks such as the CLI thread 
+ *          can block on this semaphore to wait for input.
+ *
+ * @return  SemaphoreHandle_t - A handle to the RX semaphore. May be NULL if not initialized.
+ * @note    The semaphore is created and managed within the SerialConsole module.
+ */
+SemaphoreHandle_t GetSerialRxSemaphore(void);
 
 /******************************************************************************
 * Local Functions

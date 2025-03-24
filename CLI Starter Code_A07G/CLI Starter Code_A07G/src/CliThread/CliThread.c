@@ -10,6 +10,7 @@
  * Includes
  ******************************************************************************/
 #include "CliThread.h"
+#include "SerialConsole.h"
 
 /******************************************************************************
  * Defines
@@ -66,10 +67,12 @@ static void FreeRTOS_read(char *character);
  ******************************************************************************/
 
 void vCommandConsoleTask(void *pvParameters)
-{
+{	
     // REGISTER COMMANDS HERE
     FreeRTOS_CLIRegisterCommand(&xClearScreen);
     FreeRTOS_CLIRegisterCommand(&xResetCommand);
+	FreeRTOS_CLIRegisterCommand(&xVersionCommand);
+	FreeRTOS_CLIRegisterCommand(&xTicksCommand);
 
     uint8_t cRxedChar[2], cInputIndex = 0;
     BaseType_t xMoreDataToFollow;
@@ -94,13 +97,14 @@ void vCommandConsoleTask(void *pvParameters)
         /* This implementation reads a single character at a time.  Wait in the
         Blocked state until a character is received. */
         FreeRTOS_read(&cRxedChar);
-
+		
         if (cRxedChar[0] == '\n' || cRxedChar[0] == '\r')
         {
             /* A newline character was received, so the input command string is
             complete and can be processed.  Transmit a line separator, just to
             make the output easier to read. */
             SerialConsoleWriteString("\r\n");
+			
             // Copy for last command
             isEscapeCode = false;
             pcEscapeCodePos = 0;
@@ -224,16 +228,27 @@ void vCommandConsoleTask(void *pvParameters)
 
 /**************************************************************************/ /**
  * @fn			void FreeRTOS_read(char* character)
- * @brief		STUDENTS TO COMPLETE. This function block the thread unless we received a character. How can we do this?
+ * @brief		This function block the thread unless we received a character.
                  There are multiple solutions! Check all the inter-thread communications available! See https://www.freertos.org/a00113.html
  * @details		STUDENTS TO COMPLETE.
  * @note
  *****************************************************************************/
 static void FreeRTOS_read(char *character)
 {
-    // ToDo: Complete this function
-    vTaskSuspend(NULL); // We suspend ourselves. Please remove this when doing your code
+	SemaphoreHandle_t sem = GetSerialRxSemaphore();
 	
+	if (character == NULL) {
+		return;
+	}
+
+	// wait for data
+	if (xSemaphoreTake(sem, portMAX_DELAY) == pdTRUE)
+	{		
+		if (SerialConsoleReadCharacter((uint8_t*)character) == -1)
+		{
+			*character = '\0';
+		}
+	}
 }
 
 /******************************************************************************
@@ -252,9 +267,9 @@ BaseType_t xCliClearTerminalScreen(char *pcWriteBuffer, size_t xWriteBufferLen, 
     return pdFALSE;
 }
 
-// Example CLI Command. Resets system.
+// Example CLI Command. Resets system. 
 BaseType_t CLI_ResetDevice(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
-{
+{		
     system_reset();
     return pdFALSE;
 }

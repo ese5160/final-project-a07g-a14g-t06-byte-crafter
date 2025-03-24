@@ -6,7 +6,7 @@
  */
 
 /**
- * \mainpage User Application template doxygen documentation
+ * \main page User Application template doxygen documentation
  *
  * \par Empty user application template
  *
@@ -24,6 +24,9 @@
  *
  */
 
+/******************************************************************************
+ * Includes
+ ******************************************************************************/
 /*
  * Include header files for all drivers that have been imported from
  * Atmel Software Framework (ASF).
@@ -31,12 +34,9 @@
 /*
  * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
-#include <asf.h>
+#include "asf.h"
 #include "SerialConsole/SerialConsole.h"
-#include "CliThread.h"
-/******************************************************************************
- * Includes
- ******************************************************************************/
+#include "CliThread/CliThread.h"
 
 /******************************************************************************
  * Defines and Types
@@ -49,20 +49,20 @@
 /******************************************************************************
  * Variables
  ******************************************************************************/
-static char bufferPrint[64];			  ///< Buffer for daemon task
-static TaskHandle_t cliTaskHandle = NULL; //!< CLI task handle
+static char bufferPrint[64];					///< Buffer for daemon task
+static TaskHandle_t cliTaskHandle = NULL;	//!< CLI task handle
 
 #define MAX_RX_BUFFER_LENGTH 5
 volatile uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
 
-volatile char buffer[7];
+//volatile char buffer[7];
 
 int main(void)
 {
 	// Board Initialization -- Code that initializes the HW and happens only once
 	system_init();
 	InitializeSerialConsole();
-
+	
 	/* Insert application code here, after the board has been initialized. */
 	system_interrupt_enable_global();
 	
@@ -99,7 +99,6 @@ static void StartTasks(void)
 	SerialConsoleWriteString(bufferPrint);
 
 	// CODE HERE: Initialize any Tasks in your system here
-
 	if (xTaskCreate(vCommandConsoleTask, "CLI_TASK", CLI_TASK_SIZE, NULL, CLI_PRIORITY, &cliTaskHandle) != pdPASS)
 	{
 		SerialConsoleWriteString("ERR: CLI task could not be initialized!\r\n");
@@ -122,7 +121,6 @@ static void StartTasks(void)
 void vApplicationDaemonTaskStartupHook(void *ucParameterToPass) // vApplicationDaemonTaskStartupHook()
 {
 	// CODE HERE: Initialize any HW here
-
 	// Initialize tasks
 	StartTasks();
 }
