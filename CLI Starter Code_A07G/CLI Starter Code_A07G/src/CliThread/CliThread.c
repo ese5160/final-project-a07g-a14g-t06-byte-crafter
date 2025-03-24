@@ -269,7 +269,8 @@ BaseType_t xCliClearTerminalScreen(char *pcWriteBuffer, size_t xWriteBufferLen, 
 
 // Example CLI Command. Resets system. 
 BaseType_t CLI_ResetDevice(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
-{		
+{
+	vTaskDelay(pdMS_TO_TICKS(30));
     system_reset();
     return pdFALSE;
 }
