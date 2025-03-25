@@ -136,7 +136,7 @@ Decoded message:
 
 ### 4.4
 
-File path: [uart_capture.sal](A07G/uart_capture.sal)
+File path: [uart_capture.sal](https://github.com/ese5160/final-project-a07g-a14g-t06-byte-crafter/blob/main/A07G/uart_capture.sal)
 
 ## 5. Complete the CLI
 
